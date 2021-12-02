@@ -3,11 +3,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: [
-    "eslint:recommended",
-    //"plugin:vue/essential",
-    "prettier",
-  ],
+  extends: ["eslint:recommended", "prettier"],
   plugins: ["prettier"],
   globals: {
     Atomics: "readonly",
