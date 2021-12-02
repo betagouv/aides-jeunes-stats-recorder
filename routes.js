@@ -1,13 +1,12 @@
-const { Router } = require("express");
-const bodyParserMiddleware = require("body-parser");
-const corsMiddleware = require("cors");
+const { Router } = require("express")
+const bodyParserMiddleware = require("body-parser")
+const corsMiddleware = require("cors")
 
-const config = require("./config/config.js");
+const config = require("./config/config.js")
 
-const router = Router();
+const router = Router()
 
-router.use(corsMiddleware(config.corsSettings));
-router.use(bodyParserMiddleware.json());
+router.use(corsMiddleware(config.corsSettings))
+router.use(bodyParserMiddleware.json())
 
-
-module.exports = router;
+module.exports = router
