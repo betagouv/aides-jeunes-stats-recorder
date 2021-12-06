@@ -28,11 +28,11 @@ function getBenefitRecord(request, response) {
 }
 
 function createBenefitRecord(request, response) {
-  const record = benefitsRecordsModel.create(request.body);
+  const record = benefitsRecordsModel.create(request.body)
   if (!record) {
-    throw new Error("Failed to create record");
+    throw new Error("Failed to create record")
   }
-  response.status(201).json(record);
+  response.status(201).json(record)
 }
 
 module.exports = {

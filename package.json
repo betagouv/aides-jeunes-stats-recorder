@@ -26,7 +26,8 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "express-json-validator-middleware": "^2.2.1",
-    "http-errors": "^1.8.1"
+    "http-errors": "^1.8.1",
+    "mongoose": "^6.0.14"
   },
   "devDependencies": {
     "eslint": "^8.4.0",

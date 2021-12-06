@@ -1,9 +1,5 @@
 module.exports = {
   type: "object",
-  /*
-        id
-        created_at
-    */
   required: [
     "hash_id",
     "benefit_id",
