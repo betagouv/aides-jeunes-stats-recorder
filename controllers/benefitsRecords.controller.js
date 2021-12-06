@@ -5,12 +5,17 @@ const benefitsRecordsModel = require.main.require(
 )
 
 function createBenefitRecord(request, response) {
-  const record = benefitsRecordsModel.create(request.body).then((result) => {
-    if (!result) {
-      throw new Error("Failed to create record")
-    }
-    response.status(201).json(result)
-  })
+  const record = benefitsRecordsModel
+    .create(request.body)
+    .then((result) => {
+      if (!result) {
+        throw new Error("Failed to create record")
+      }
+      response.status(201).json(result)
+    })
+    .catch((error) => {
+      throw new Error(`Failed to create record: ${error}`)
+    })
 }
 
 module.exports = {
