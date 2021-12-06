@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+const mongoose = require("mongoose")
 
 const BenefitsRecordsSchema = new mongoose.Schema(
   {
@@ -14,5 +14,4 @@ const BenefitsRecordsSchema = new mongoose.Schema(
 
 BenefitsRecordsSchema.index({ benefit_id: 1 }, { unique: true })
 
-const model = mongoose.model("BenefitsRecord", BenefitsRecordsSchema)
-export default model
+module.exports = mongoose.model("BenefitsRecord", BenefitsRecordsSchema)

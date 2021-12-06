@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
-const benefitsRecordsMongooseSchema = require.main.require(
-  "./schemas/benefitsRecords.schema.js"
+require.main.require("./config/mongoose")
+
+const BenefitsRecordsSchema = require.main.require(
+  "./schemas/benefitsRecords.mongoose.js"
 )
 
 module.exports = {
@@ -9,13 +11,14 @@ module.exports = {
       benefit_id: benefitId,
     }
   },
-  create(benefitRecord) {
+  async create(benefitRecord) {
     try {
-        const res = await benefitsRecordsMongooseSchema.create(benefitRecord)
-    } catch(error) {
+      const result = await BenefitsRecordsSchema.create(benefitRecord)
+      return result
+    } catch (error) {
       console.error(error)
+      return
     }
-    return benefitRecord
   },
   update(benefitId, benefitRecord) {
     return benefitRecord
