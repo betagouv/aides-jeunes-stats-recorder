@@ -11,7 +11,6 @@ const router = Router()
 router.use(corsMiddleware(config.corsSettings))
 router.use(bodyParserMiddleware.json())
 
-router.get("/benefit/:benefit_id", benefitsRecordsController.getBenefitRecord)
 router.post("/benefits/", benefitsRecordsController.createBenefitRecord)
 
 module.exports = router

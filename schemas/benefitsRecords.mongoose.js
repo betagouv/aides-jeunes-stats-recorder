@@ -7,11 +7,10 @@ const BenefitsRecordsSchema = new mongoose.Schema(
     benefit_id: { type: String, required: true },
     benefit_page_position: { type: Number, required: true },
     benefits_page_total: { type: Number, required: true },
-    event_type: { type: String, enum: ["display", "clicked"], required: true },
+    event_type: { type: String, enum: ["display", "clicked"], default: "display", required: true },
   },
-  { collection: "completed" }
+  { collection: "records" }
 )
 
-BenefitsRecordsSchema.index({ benefit_id: 1 }, { unique: true })
 
 module.exports = mongoose.model("BenefitsRecord", BenefitsRecordsSchema)
