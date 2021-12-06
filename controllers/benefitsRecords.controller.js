@@ -10,11 +10,10 @@ const benefitsRecordsModel = require.main.require(
 )
 
 function validateBenefitID(request, response, next) {
+  //TODO: validate that the benefit id is valid
   const benefitId = request.params.benefit_id.length
-
   if (benefitId < 3) {
     const error = new createHttpError.BadRequest()
-
     return next(error)
   }
 
@@ -29,7 +28,11 @@ function getBenefitRecord(request, response) {
 }
 
 function createBenefitRecord(request, response) {
-  //
+  const record = benefitsRecordsModel.create(request.body);
+  if (!record) {
+    throw new Error("Failed to create record");
+  }
+  response.status(201).json(record);
 }
 
 module.exports = {
