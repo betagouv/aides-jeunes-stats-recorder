@@ -6,15 +6,13 @@ const BenefitsRecordsSchema = require.main.require(
 )
 
 module.exports = {
-
   async create(benefitRecord) {
     try {
       const result = await BenefitsRecordsSchema.create(benefitRecord)
-      return {"response": "Record created", "status": 201}
+      return { response: "Record created", status: 201 }
     } catch (error) {
       console.error(error)
       return
     }
-  }
-
+  },
 }
