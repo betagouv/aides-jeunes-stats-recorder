@@ -35,14 +35,14 @@ Les paramètres à remplir sont les suivants :
 | hash_id       | Un identifiant permettant de reconnaitre l'utilisateur. Par défaut l'id Matomo.                                         |
 | benefit_index | La position de l'aide affichée sur la page de résultat                                                                  |
 | page_total    | Le nombre total d'aides affichées sur la page de résultat                                                               |
-| event_type    | Le type d'évènement : "displayed" lorsque l'aide est affichée à l'utilisateur, "clicked" lorsque celui-ci a cliqué dessus |
+| event_type    | Le type d'évènement : "show" lorsque l'aide est affichée à l'utilisateur, "showDetails" lorsque celui-ci affiche les informations liée à une aide spécifique |
 
 Pour effectuer des tests, on peut faire une requête `curl` depuis un terminal:
 
 ```bash
 curl -v -X POST \
   -H 'Content-Type: application/json' \
-  -d '{"benefit_id": "RSA", "hash_id": "xxxxxxxxx", "benefit_index": 4, "page_total": 10, "event_type": "displayed" }' \
+  -d '{"benefit_id": "RSA", "hash_id": "xxxxxxxxx", "benefit_index": 4, "page_total": 10, "event_type": "show" }' \
   http://localhost:4000/benefits
 ```
 
@@ -51,6 +51,6 @@ Pour ne pas avoir à effectuer autant de requêtes qu'il y a d'aides par page, o
 ```bash
 curl -v -X POST \
   -H 'Content-Type: application/json' \
-  -d '[{"benefit_id": "RSA", "hash_id": "xxxxxxxxx", "benefit_index": 1, "page_total": 2, "event_type": "displayed" }, {"benefit_id": "Livret d’épargne populaire", "hash_id": "xxxxxxxxx", "benefit_index": 2, "page_total": 2, "event_type": "displayed" }]' \
+  -d '[{"benefit_id": "RSA", "hash_id": "xxxxxxxxx", "benefit_index": 1, "page_total": 2, "event_type": "show" }, {"benefit_id": "Livret d’épargne populaire", "hash_id": "xxxxxxxxx", "benefit_index": 2, "page_total": 2, "event_type": "show" }]' \
   http://localhost:4000/benefits
 ```

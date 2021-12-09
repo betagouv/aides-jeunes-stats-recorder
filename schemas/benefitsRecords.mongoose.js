@@ -9,8 +9,8 @@ const BenefitsRecordsSchema = new mongoose.Schema(
     page_total: { type: Number, required: true },
     event_type: {
       type: String,
-      enum: ["displayed", "clicked"],
-      default: "displayed",
+      enum: ["show", "showDetails"],
+      default: "show",
       required: true,
     },
   },
