@@ -29,12 +29,12 @@ Pour pouvoir ajouter des records servant à établir des statistiques, le client
 
 Les paramètres à remplir sont les suivants :
 
-| Paramètre     | Description                                                                                                             |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| benefit_id    | L'identifiant de l'aide                                                                                                 |
-| hash_id       | Un identifiant permettant de reconnaitre l'utilisateur. Par défaut l'id Matomo.                                         |
-| benefit_index | La position de l'aide affichée sur la page de résultat                                                                  |
-| page_total    | Le nombre total d'aides affichées sur la page de résultat                                                               |
+| Paramètre     | Description                                                                                                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| benefit_id    | L'identifiant de l'aide                                                                                                                                      |
+| hash_id       | Un identifiant permettant de reconnaitre l'utilisateur. Par défaut l'id Matomo.                                                                              |
+| benefit_index | La position de l'aide affichée sur la page de résultat                                                                                                       |
+| page_total    | Le nombre total d'aides affichées sur la page de résultat                                                                                                    |
 | event_type    | Le type d'évènement : "show" lorsque l'aide est affichée à l'utilisateur, "showDetails" lorsque celui-ci affiche les informations liée à une aide spécifique |
 
 Pour effectuer des tests, on peut faire une requête `curl` depuis un terminal:

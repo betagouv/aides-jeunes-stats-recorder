@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const config = require.main.require("./config/config")
 
 const BenefitsRecordsSchema = new mongoose.Schema(
   {
@@ -13,6 +14,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
       default: "show",
       required: true,
     },
+    api_version: { type: Number, default: config.api.version },
   },
   { collection: "records" }
 )
