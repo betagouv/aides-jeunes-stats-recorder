@@ -13,6 +13,6 @@ module.exports = {
     },
   },
   api: {
-    version: 1,
+    version: 2,
   },
 }
