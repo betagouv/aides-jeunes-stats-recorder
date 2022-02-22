@@ -14,7 +14,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
       default: "show",
       required: true,
     },
-    api_version: { type: Number, default: config.api.version },
+    version: { type: Number, required: true },
   },
   { collection: "records" }
 )
