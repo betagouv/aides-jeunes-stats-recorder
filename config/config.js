@@ -12,7 +12,4 @@ module.exports = {
       useNewUrlParser: true,
     },
   },
-  api: {
-    version: 1,
-  },
 }
