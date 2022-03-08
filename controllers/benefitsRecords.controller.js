@@ -18,6 +18,21 @@ function createBenefitRecord(request, response) {
     })
 }
 
+function listBenefitsRecords(request, response) {
+  const records = benefitsRecordsModel
+    .listBenefits()
+    .then((records) => {
+      if (!records) {
+        throw new Error("Failed to list records")
+      }
+      response.status(200).json(records)
+    })
+    .catch((error) => {
+      throw new Error(`Failed to list records: ${error}`)
+    })
+}
+
 module.exports = {
   createBenefitRecord: [createBenefitRecord],
+  listBenefitsRecords: [listBenefitsRecords],
 }
