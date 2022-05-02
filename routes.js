@@ -12,5 +12,6 @@ router.use(corsMiddleware(config.corsSettings))
 router.use(bodyParserMiddleware.json())
 
 router.post("/benefits/", benefitsRecordsController.createBenefitRecord)
+router.get("/statistics/", benefitsRecordsController.listBenefitsRecords)
 
 module.exports = router
