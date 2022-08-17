@@ -61,7 +61,7 @@ La structure est la suivante :
 ```
 [
   {
-    "benefit":"depart1825_montant_maximum", => Nom de l'aide en question
+    "benefit":"depart1825_montant_maximum", => nom de l'aide en question
     "events_count": 232929,                 => nombre total d'évènements par aide
     "events": {
       "showDetails": {
