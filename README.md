@@ -54,3 +54,24 @@ curl -v -X POST \
   -d '[{"benefit_id": "RSA", "hash_id": "xxxxxxxxx", "benefit_index": 1, "page_total": 2, "event_type": "show" }, {"benefit_id": "Livret d’épargne populaire", "hash_id": "xxxxxxxxx", "benefit_index": 2, "page_total": 2, "event_type": "show" }]' \
   http://localhost:4000/benefits
 ```
+
+# Récupération des statistiques
+Les statistiques sont récupérables sur `http://localhost:4000/statistics`.
+La structure est la suivante :
+```
+[
+  {
+    "benefit":"depart1825_montant_maximum", => nom de l'aide en question
+    "events_count": 232929,                 => nombre total d'évènements par aide
+    "events": {
+      "showDetails": {
+        "2": {                              => 2 aides affichées sur la page
+          "1": 3,                           => l'aide a été cliqué 3 fois alors qu'elle était en 1ère position sur 2
+          "2": 12                           => l'aide a été cliqué 12 fois alors qu'elle était en 2ème position sur 2
+        },
+        "3": {                              => 3 aides affichées sur la page
+          "1": 4,                           => l'aide a été cliqué 4 fois alors qu'elle était en 1ère position sur 3
+          "2": 41,                          => l'aide a été cliqué 41 fois alors qu'elle était en 2ème position sur 3
+          "3": 51                           => l'aide a été cliqué 51 fois alors qu'elle était en 3ème position sur 3
+        },
+```
