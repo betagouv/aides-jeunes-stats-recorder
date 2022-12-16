@@ -29,6 +29,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
       default: "show",
       required: true,
     },
+    abtesting: Object,
     version: { type: Number, required: true },
   },
   { collection: "records" }
