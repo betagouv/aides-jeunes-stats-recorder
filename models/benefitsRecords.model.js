@@ -6,9 +6,16 @@ const BenefitsRecordsSchema = require.main.require(
 )
 
 module.exports = {
-  async create(benefitRecord) {
+  async create(benefitRecordOrRecords) {
     try {
-      const result = await BenefitsRecordsSchema.create(benefitRecord)
+      const group_id = new mongoose.Types.ObjectId()
+      const addGroup = (b) => b.group_id = group_id
+      if (benefitRecordOrRecords instanceof Array) {
+        benefitRecordOrRecords.forEach(addGroup)
+      } else {
+        addGroup(benefitRecordOrRecords)
+      }
+      const result = await BenefitsRecordsSchema.create(benefitRecordOrRecords)
       return { response: "Record created", status: 201 }
     } catch (error) {
       console.error(error)

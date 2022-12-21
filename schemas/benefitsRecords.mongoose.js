@@ -5,6 +5,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
   {
     created_at: { type: Date, default: () => Date.now() },
     hash_id: { type: String, required: true },
+    group_id: { type: mongoose.ObjectId },
     benefit_id: { type: String, required: true },
     benefit_index: { type: Number, required: true },
     page_total: { type: Number, required: true },
