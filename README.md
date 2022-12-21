@@ -16,7 +16,7 @@ Une fois le repository récupéré, il suffit d'exécuter les commandes suivante
 
 ```bash
 npm install
-npm start
+CORS_DOMAIN=* npm start
 ```
 
 Le serveur est accessible par défaut sur [`localhost:4000`](http://localhost:4000/)

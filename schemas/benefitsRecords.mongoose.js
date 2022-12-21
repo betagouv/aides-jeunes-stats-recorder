@@ -29,6 +29,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
       default: "show",
       required: true,
     },
+    abtesting: { type: Map, of: String },
     version: { type: Number, required: true },
   },
   { collection: "records" }
