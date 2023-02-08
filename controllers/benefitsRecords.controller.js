@@ -1,35 +1,23 @@
-const createHttpError = require("http-errors")
-
 const benefitsRecordsModel = require.main.require(
   "./models/benefitsRecords.model.js"
 )
 
-function createBenefitRecord(request, response) {
-  const record = benefitsRecordsModel
+function createBenefitRecord(request, response, next) {
+  benefitsRecordsModel
     .create(request.body)
-    .then((result) => {
-      if (!result) {
-        throw new Error("Failed to create record")
-      }
-      response.status(201).json(result)
+    .then(() => {
+      response.status(200).json({ response: "Record created" })
     })
-    .catch((error) => {
-      throw new Error(`Failed to create record: ${error}`)
-    })
+    .catch(next)
 }
 
-function listBenefitsRecords(request, response) {
-  const records = benefitsRecordsModel
+function listBenefitsRecords(request, response, next) {
+  benefitsRecordsModel
     .listBenefits()
     .then((records) => {
-      if (!records) {
-        throw new Error("Failed to list records")
-      }
       response.status(200).json(records)
     })
-    .catch((error) => {
-      throw new Error(`Failed to list records: ${error}`)
-    })
+    .catch(next)
 }
 
 module.exports = {

@@ -56,8 +56,10 @@ curl -v -X POST \
 ```
 
 # Récupération des statistiques
+
 Les statistiques sont récupérables sur `http://localhost:4000/statistics`.
 La structure est la suivante :
+
 ```
 [
   {
