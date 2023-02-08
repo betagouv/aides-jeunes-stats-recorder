@@ -8,7 +8,7 @@ const BenefitsRecordsSchema = require.main.require(
 module.exports = {
   async create(benefitRecordOrRecords) {
     const group_id = new mongoose.Types.ObjectId()
-    const addGroup = (b) => b.group_id = group_id
+    const addGroup = (b) => (b.group_id = group_id)
     if (benefitRecordOrRecords instanceof Array) {
       benefitRecordOrRecords.forEach(addGroup)
     } else {
@@ -135,9 +135,9 @@ module.exports = {
       },
       {
         $sort: {
-          events_count: -1
-        }
-      }
+          events_count: -1,
+        },
+      },
     ])
   },
 }

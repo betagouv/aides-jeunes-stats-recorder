@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const config = require.main.require("./config/config")
 
 const BenefitsRecordsSchema = new mongoose.Schema(
   {

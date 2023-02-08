@@ -7,9 +7,9 @@ const app = express()
 app.use("/", routes)
 
 app.use((error, request, response, next) => {
-  const message = error?.message || error
-  console.error(error?.message || error)
-  response.status(422).json({message})
+  const message = error.message || error
+  console.error(message)
+  response.status(422).json({ message })
 })
 
 const server = app.listen(config.server.port, () => {
