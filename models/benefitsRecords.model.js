@@ -7,148 +7,137 @@ const BenefitsRecordsSchema = require.main.require(
 
 module.exports = {
   async create(benefitRecordOrRecords) {
-    try {
-      const group_id = new mongoose.Types.ObjectId()
-      const addGroup = (b) => b.group_id = group_id
-      if (benefitRecordOrRecords instanceof Array) {
-        benefitRecordOrRecords.forEach(addGroup)
-      } else {
-        addGroup(benefitRecordOrRecords)
-      }
-      const result = await BenefitsRecordsSchema.create(benefitRecordOrRecords)
-      return { response: "Record created", status: 201 }
-    } catch (error) {
-      console.error(error)
-      return
+    const group_id = new mongoose.Types.ObjectId()
+    const addGroup = (b) => b.group_id = group_id
+    if (benefitRecordOrRecords instanceof Array) {
+      benefitRecordOrRecords.forEach(addGroup)
+    } else {
+      addGroup(benefitRecordOrRecords)
     }
+    return await BenefitsRecordsSchema.create(benefitRecordOrRecords)
   },
   async listBenefits() {
-    try {
-      return BenefitsRecordsSchema.aggregate([
-        {
-          $match: {
-            version: 2,
+    return BenefitsRecordsSchema.aggregate([
+      {
+        $match: {
+          version: 2,
+        },
+      },
+      {
+        $group: {
+          _id: {
+            benefit: "$benefit_id",
+            index: {
+              $toString: "$benefit_index",
+            },
+            total: {
+              $toString: "$page_total",
+            },
+            event_type: "$event_type",
+          },
+          count: {
+            $sum: 1,
           },
         },
-        {
-          $group: {
-            _id: {
-              benefit: "$benefit_id",
-              index: {
-                $toString: "$benefit_index",
-              },
-              total: {
-                $toString: "$page_total",
-              },
-              event_type: "$event_type",
-            },
-            count: {
-              $sum: 1,
+      },
+      {
+        $group: {
+          _id: {
+            benefit: "$_id.benefit",
+            event_type: "$_id.event_type",
+            total: "$_id.total",
+          },
+          items: {
+            $push: {
+              k: "$_id.index",
+              v: "$count",
             },
           },
-        },
-        {
-          $group: {
-            _id: {
-              benefit: "$_id.benefit",
-              event_type: "$_id.event_type",
-              total: "$_id.total",
-            },
-            items: {
-              $push: {
-                k: "$_id.index",
-                v: "$count",
-              },
-            },
-            events_count: {
-              $sum: "$count",
-            },
+          events_count: {
+            $sum: "$count",
           },
         },
-        {
-          $addFields: {
-            events: {
-              $arrayToObject: "$items",
-            },
+      },
+      {
+        $addFields: {
+          events: {
+            $arrayToObject: "$items",
           },
         },
-        {
-          $project: {
-            items: 0,
-          },
+      },
+      {
+        $project: {
+          items: 0,
         },
-        {
-          $group: {
-            _id: {
-              benefit: "$_id.benefit",
-              event_type: "$_id.event_type",
-            },
-            items: {
-              $push: {
-                k: "$_id.total",
-                v: "$events",
-              },
-            },
-            events_count: {
-              $sum: "$events_count",
+      },
+      {
+        $group: {
+          _id: {
+            benefit: "$_id.benefit",
+            event_type: "$_id.event_type",
+          },
+          items: {
+            $push: {
+              k: "$_id.total",
+              v: "$events",
             },
           },
-        },
-        {
-          $addFields: {
-            events: {
-              $arrayToObject: "$items",
-            },
+          events_count: {
+            $sum: "$events_count",
           },
         },
-        {
-          $project: {
-            items: 0,
+      },
+      {
+        $addFields: {
+          events: {
+            $arrayToObject: "$items",
           },
         },
-        {
-          $group: {
-            _id: {
-              benefit: "$_id.benefit",
-            },
-            items: {
-              $push: {
-                k: "$_id.event_type",
-                v: "$events",
-              },
-            },
-            events_count: {
-              $sum: "$events_count",
-            },
-          },
+      },
+      {
+        $project: {
+          items: 0,
         },
-        {
-          $addFields: {
-            events: {
-              $arrayToObject: "$items",
-            },
-          },
-        },
-        {
-          $addFields: {
+      },
+      {
+        $group: {
+          _id: {
             benefit: "$_id.benefit",
           },
-        },
-        {
-          $project: {
-            _id: 0,
-            items: 0,
+          items: {
+            $push: {
+              k: "$_id.event_type",
+              v: "$events",
+            },
+          },
+          events_count: {
+            $sum: "$events_count",
           },
         },
-        {
-          $sort: {
-            events_count: -1
-          }
+      },
+      {
+        $addFields: {
+          events: {
+            $arrayToObject: "$items",
+          },
+        },
+      },
+      {
+        $addFields: {
+          benefit: "$_id.benefit",
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          items: 0,
+        },
+      },
+      {
+        $sort: {
+          events_count: -1
         }
-      ])
-    } catch (error) {
-      console.error(error)
-      return
-    }
+      }
+    ])
   },
 }
