@@ -20,6 +20,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
         "show-locations",
         "link-ineligible",
         "show-unexpected",
+        "show-unexpected-amount-link",
         "close",
         "teleservice",
         "retour-logement",
