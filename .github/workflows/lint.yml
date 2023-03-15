@@ -1,0 +1,28 @@
+name: Lint
+
+on: [push]
+
+concurrency:
+  cancel-in-progress: true
+  group: lint-${{ github.ref }}
+
+jobs:
+  code:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Lint (eslint)
+        run: |
+          npm run lint
+      - name: Lint (prettier)
+        run: |
+          npm run prettier:check
