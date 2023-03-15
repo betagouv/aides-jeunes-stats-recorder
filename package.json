@@ -1,5 +1,8 @@
 {
   "name": "aides-jeunes-stats-recorder",
+  "engines": {
+    "node": "^16"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
