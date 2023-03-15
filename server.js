@@ -12,6 +12,10 @@ app.use((error, request, response, next) => {
   response.status(422).json({ message })
 })
 
-const server = app.listen(config.server.port, () => {
-  console.log(`Server running at http://localhost:${server.address().port}`)
-})
+if (process.env.NODE_ENV !== "test") {
+  const server = app.listen(config.server.port, () => {
+    console.log(`Server running at http://localhost:${server.address().port}`)
+  })
+}
+
+module.exports = app
