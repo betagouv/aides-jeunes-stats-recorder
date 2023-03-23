@@ -19,4 +19,12 @@ module.exports = {
     "no-param-reassign": "off",
     "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
   },
+  overrides: [
+    {
+      files: ["tests/**/*.js"],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 }
