@@ -25,7 +25,7 @@ Davantage de commandes liées au développement sont accessibles dans le `packag
 
 # Development
 
-Pour lancer le serveur en mode développement avec nodemon, il faut executer la commande suivante :
+Pour lancer le serveur en mode développement avec nodemon, il faut exécuter la commande suivante :
 
 ```bash
 npm run dev
