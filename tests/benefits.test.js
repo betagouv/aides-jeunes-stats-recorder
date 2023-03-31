@@ -95,3 +95,47 @@ describe("POST /benefits/ when payload is an array", () => {
     expect(benefit.group_id).toEqual(otherBenefit.group_id)
   })
 })
+
+describe("GET /benefits", () => {
+  const payload = {
+    benefit_id: "benefit_id",
+    hash_id: "hash_id",
+    benefit_index: 1,
+    event_type: "show",
+    page_total: 3,
+    version: 2,
+  }
+  const otherPayload = {
+    ...payload,
+    benefit_id: "other_benefit_id",
+    event_type: "show-locations",
+  }
+  let response
+
+  beforeAll(async () => {
+    await BenefitsRecordsSchema.deleteMany({})
+    await BenefitsRecordsSchema.create([payload, payload, otherPayload])
+    response = await request(app).get("/benefits")
+  })
+
+  it("responds 200", async () => {
+    expect(response.statusCode).toBe(200)
+  })
+
+  it("returns data", async () => {
+    expect(response.body.length).toBe(2)
+    expect(response.body).toContainEqual({
+      id: "benefit_id",
+      events: {
+        show: 2,
+      },
+    })
+
+    expect(response.body).toContainEqual({
+      id: "other_benefit_id",
+      events: {
+        "show-locations": 1,
+      },
+    })
+  })
+})

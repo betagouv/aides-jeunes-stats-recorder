@@ -16,5 +16,6 @@ router.get(
   "/statistics/",
   benefitsRecordsController.getBenefitsRankingStatistics
 )
+router.get("/benefits", benefitsRecordsController.aggregateBenefitEvents)
 
 module.exports = router

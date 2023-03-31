@@ -20,7 +20,17 @@ function getBenefitsRankingStatistics(request, response, next) {
     .catch(next)
 }
 
+async function aggregateBenefitEvents(request, response, next) {
+  try {
+    const records = await benefitsRecordsModel.aggregateBenefitEvents()
+    response.status(200).json(records)
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   createBenefitRecord: [createBenefitRecord],
   getBenefitsRankingStatistics: [getBenefitsRankingStatistics],
+  aggregateBenefitEvents: [aggregateBenefitEvents],
 }
