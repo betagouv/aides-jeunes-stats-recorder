@@ -23,6 +23,16 @@ Le serveur est accessible par défaut sur [`localhost:4000`](http://localhost:40
 
 Davantage de commandes liées au développement sont accessibles dans le `package.json`.
 
+# Development
+
+Pour lancer le serveur en mode développement avec nodemon, il faut executer la commande suivante :
+
+```bash
+npm run dev
+```
+
+Cette commande utilise nodemon avec le fichier server.js. Nodemon surveillera les modifications de fichiers et redémarrera automatiquement le serveur à chaque changement.
+
 # Ajout de records
 
 Pour pouvoir ajouter des records servant à établir des statistiques, le client doit envoyer une requête `POST` à l'url `http://localhost:4000/benefits`.
