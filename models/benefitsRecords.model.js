@@ -66,11 +66,6 @@ module.exports = {
         },
       },
       {
-        $project: {
-          items: 0,
-        },
-      },
-      {
         $group: {
           _id: {
             benefit: "$_id.benefit",
@@ -92,11 +87,6 @@ module.exports = {
           events: {
             $arrayToObject: "$items",
           },
-        },
-      },
-      {
-        $project: {
-          items: 0,
         },
       },
       {
