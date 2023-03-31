@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const config = require("./config")
 
 mongoose.Promise = global.Promise
+mongoose.set("strictQuery", false)
 mongoose.connect(config.mongo.uri, config.mongo.options)
 
 async function tearDownMongoose() {
