@@ -11,9 +11,9 @@ function createBenefitRecord(request, response, next) {
     .catch(next)
 }
 
-function listBenefitsRecords(request, response, next) {
+function getBenefitsRankingStatistics(request, response, next) {
   benefitsRecordsModel
-    .listBenefits()
+    .getBenefitsRankingStatistics()
     .then((records) => {
       response.status(200).json(records)
     })
@@ -22,5 +22,5 @@ function listBenefitsRecords(request, response, next) {
 
 module.exports = {
   createBenefitRecord: [createBenefitRecord],
-  listBenefitsRecords: [listBenefitsRecords],
+  getBenefitsRankingStatistics: [getBenefitsRankingStatistics],
 }

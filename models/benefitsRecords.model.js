@@ -16,7 +16,7 @@ module.exports = {
     }
     return await BenefitsRecordsSchema.create(benefitRecordOrRecords)
   },
-  async listBenefits() {
+  getBenefitsRankingStatistics() {
     return BenefitsRecordsSchema.aggregate([
       {
         $match: {
