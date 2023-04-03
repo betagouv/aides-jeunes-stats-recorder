@@ -22,7 +22,11 @@ function getBenefitsRankingStatistics(request, response, next) {
 
 async function aggregateBenefitEvents(request, response, next) {
   try {
-    const records = await benefitsRecordsModel.aggregateBenefitEvents()
+    const startAt = request.query.start_at
+    const parsedStartAt = startAt ? new Date(startAt) : new Date(0)
+    const records = await benefitsRecordsModel.aggregateBenefitEvents(
+      parsedStartAt
+    )
     response.status(200).json(records)
   } catch (error) {
     next(error)

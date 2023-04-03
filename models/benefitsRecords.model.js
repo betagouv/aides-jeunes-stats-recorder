@@ -16,8 +16,15 @@ module.exports = {
     }
     return await BenefitsRecordsSchema.create(benefitRecordOrRecords)
   },
-  async aggregateBenefitEvents() {
+  async aggregateBenefitEvents(startAt) {
     return await BenefitsRecordsSchema.aggregate([
+      {
+        $match: {
+          created_at: {
+            $gte: startAt,
+          },
+        },
+      },
       {
         $group: {
           _id: {
