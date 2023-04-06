@@ -95,3 +95,65 @@ describe("POST /benefits/ when payload is an array", () => {
     expect(benefit.group_id).toEqual(otherBenefit.group_id)
   })
 })
+
+describe("GET /benefits", () => {
+  const payload = {
+    benefit_id: "benefit_id",
+    hash_id: "hash_id",
+    benefit_index: 1,
+    event_type: "show",
+    page_total: 3,
+    version: 2,
+    created_at: new Date("2022-01-01T00:00:00Z"),
+  }
+  const otherPayload = {
+    ...payload,
+    benefit_id: "other_benefit_id",
+    event_type: "show-locations",
+    created_at: new Date("2023-01-01T00:00:00Z"),
+  }
+  let response
+
+  beforeAll(async () => {
+    await BenefitsRecordsSchema.deleteMany({})
+    await BenefitsRecordsSchema.create([payload, payload, otherPayload])
+    response = await request(app).get("/benefits")
+  })
+
+  it("responds 200", async () => {
+    expect(response.statusCode).toBe(200)
+  })
+
+  it("returns data", async () => {
+    expect(response.body.length).toBe(2)
+    expect(response.body).toContainEqual({
+      id: "benefit_id",
+      events: {
+        show: 2,
+      },
+    })
+
+    expect(response.body).toContainEqual({
+      id: "other_benefit_id",
+      events: {
+        "show-locations": 1,
+      },
+    })
+  })
+
+  describe("when start_at is provided", () => {
+    beforeAll(async () => {
+      response = await request(app).get("/benefits?start_at=2022-12-31")
+    })
+
+    it("returns data", async () => {
+      expect(response.body.length).toBe(1)
+      expect(response.body).toContainEqual({
+        id: "other_benefit_id",
+        events: {
+          "show-locations": 1,
+        },
+      })
+    })
+  })
+})

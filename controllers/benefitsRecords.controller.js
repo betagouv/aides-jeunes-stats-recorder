@@ -11,16 +11,30 @@ function createBenefitRecord(request, response, next) {
     .catch(next)
 }
 
-function listBenefitsRecords(request, response, next) {
+function getBenefitsRankingStatistics(request, response, next) {
   benefitsRecordsModel
-    .listBenefits()
+    .getBenefitsRankingStatistics()
     .then((records) => {
       response.status(200).json(records)
     })
     .catch(next)
 }
 
+async function aggregateBenefitEvents(request, response, next) {
+  try {
+    const startAt = request.query.start_at
+    const parsedStartAt = startAt ? new Date(startAt) : new Date(0)
+    const records = await benefitsRecordsModel.aggregateBenefitEvents(
+      parsedStartAt
+    )
+    response.status(200).json(records)
+  } catch (error) {
+    next(error)
+  }
+}
+
 module.exports = {
   createBenefitRecord: [createBenefitRecord],
-  listBenefitsRecords: [listBenefitsRecords],
+  getBenefitsRankingStatistics: [getBenefitsRankingStatistics],
+  aggregateBenefitEvents: [aggregateBenefitEvents],
 }

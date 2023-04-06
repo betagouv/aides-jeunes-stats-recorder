@@ -16,7 +16,51 @@ module.exports = {
     }
     return await BenefitsRecordsSchema.create(benefitRecordOrRecords)
   },
-  async listBenefits() {
+  async aggregateBenefitEvents(startAt) {
+    return await BenefitsRecordsSchema.aggregate([
+      {
+        $match: {
+          created_at: {
+            $gte: startAt,
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            benefit_id: "$benefit_id",
+            event_type: "$event_type",
+          },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $group: {
+          _id: "$_id.benefit_id",
+          events: {
+            $push: {
+              k: "$_id.event_type",
+              v: "$count",
+            },
+          },
+        },
+      },
+      {
+        $addFields: {
+          events: {
+            $arrayToObject: "$events",
+          },
+          id: "$_id",
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ])
+  },
+  getBenefitsRankingStatistics() {
     return BenefitsRecordsSchema.aggregate([
       {
         $match: {
@@ -66,11 +110,6 @@ module.exports = {
         },
       },
       {
-        $project: {
-          items: 0,
-        },
-      },
-      {
         $group: {
           _id: {
             benefit: "$_id.benefit",
@@ -92,11 +131,6 @@ module.exports = {
           events: {
             $arrayToObject: "$items",
           },
-        },
-      },
-      {
-        $project: {
-          items: 0,
         },
       },
       {
