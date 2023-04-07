@@ -3,10 +3,15 @@ module.exports = function createCacheMiddleware(rootCacheKey, ttl = 30) {
 
   return function cacheMiddleware(req, res, next) {
     const cacheKey = `${rootCacheKey}:${JSON.stringify(req.query)}`
-    const cacheEntry = inMemoryCache[cacheKey]
+    const cacheControl = req.headers["cache-control"]
+    const useCache = !cacheControl || !cacheControl.includes("no-cache")
 
-    if (cacheEntry && Date.now() - cacheEntry.timestamp < ttl * 60 * 1000) {
-      return res.send(cacheEntry.data)
+    if (useCache) {
+      const cacheEntry = inMemoryCache[cacheKey]
+
+      if (cacheEntry && Date.now() - cacheEntry.timestamp < ttl * 60 * 1000) {
+        return res.send(cacheEntry.data)
+      }
     }
 
     res.cache = (data) => {
