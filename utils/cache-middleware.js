@@ -1,5 +1,19 @@
 module.exports = function createCacheMiddleware(rootCacheKey, ttl = 30) {
   const inMemoryCache = {}
+  const ttlInMilliseconds = ttl * 60 * 1000
+
+  function cleanupCache() {
+    const now = Date.now()
+    for (const key in inMemoryCache) {
+      if (inMemoryCache[key].timestamp + ttlInMilliseconds < now) {
+        delete inMemoryCache[key]
+      }
+    }
+  }
+
+  if (process.env.NODE_ENV !== "test") {
+    setInterval(cleanupCache, ttlInMilliseconds)
+  }
 
   return function cacheMiddleware(req, res, next) {
     const cacheKey = `${rootCacheKey}:${JSON.stringify(req.query)}`
@@ -9,7 +23,7 @@ module.exports = function createCacheMiddleware(rootCacheKey, ttl = 30) {
     if (useCache) {
       const cacheEntry = inMemoryCache[cacheKey]
 
-      if (cacheEntry && Date.now() - cacheEntry.timestamp < ttl * 60 * 1000) {
+      if (cacheEntry && Date.now() - cacheEntry.timestamp < ttlInMilliseconds) {
         return res.set("x-cache", "hit").send(cacheEntry.data)
       }
     }
