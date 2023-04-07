@@ -10,7 +10,7 @@ module.exports = function createCacheMiddleware(rootCacheKey, ttl = 30) {
       const cacheEntry = inMemoryCache[cacheKey]
 
       if (cacheEntry && Date.now() - cacheEntry.timestamp < ttl * 60 * 1000) {
-        return res.send(cacheEntry.data)
+        return res.set("x-cache", "hit").send(cacheEntry.data)
       }
     }
 
