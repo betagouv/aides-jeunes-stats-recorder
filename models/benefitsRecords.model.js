@@ -60,8 +60,8 @@ module.exports = {
       },
     ])
   },
-  getBenefitsRankingStatistics() {
-    return BenefitsRecordsSchema.aggregate([
+  async getBenefitsRankingStatistics() {
+    return await BenefitsRecordsSchema.aggregate([
       {
         $match: {
           version: 2,
