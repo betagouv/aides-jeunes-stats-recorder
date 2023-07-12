@@ -1,5 +1,5 @@
 const benefitsRecordsModel = require.main.require(
-  "./models/benefitsRecords.model.js"
+  "./models/benefitsRecords.model.js",
 )
 const createCacheMiddleware = require("../utils/cache-middleware.js")
 
@@ -26,7 +26,7 @@ async function aggregateBenefitEvents(request, response, next) {
     const startAt = request.query.start_at
     const parsedStartAt = startAt ? new Date(startAt) : new Date(0)
     const records = await benefitsRecordsModel.aggregateBenefitEvents(
-      parsedStartAt
+      parsedStartAt,
     )
 
     response.cache(records)

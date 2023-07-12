@@ -14,7 +14,7 @@ router.use(bodyParserMiddleware.json())
 router.post("/benefits/", benefitsRecordsController.createBenefitRecord)
 router.get(
   "/statistics/",
-  benefitsRecordsController.getBenefitsRankingStatistics
+  benefitsRecordsController.getBenefitsRankingStatistics,
 )
 router.get("/benefits", benefitsRecordsController.aggregateBenefitEvents)
 

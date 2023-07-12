@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 require.main.require("./config/mongoose")
 
 const BenefitsRecordsSchema = require.main.require(
-  "./schemas/benefitsRecords.mongoose.js"
+  "./schemas/benefitsRecords.mongoose.js",
 )
 
 module.exports = {

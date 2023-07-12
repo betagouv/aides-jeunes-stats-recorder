@@ -33,7 +33,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
     abtesting: { type: Map, of: String },
     version: { type: Number, required: true },
   },
-  { collection: "records" }
+  { collection: "records" },
 )
 
 module.exports = mongoose.model("BenefitsRecord", BenefitsRecordsSchema)
