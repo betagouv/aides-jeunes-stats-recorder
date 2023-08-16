@@ -25,9 +25,8 @@ async function aggregateBenefitEvents(request, response, next) {
   try {
     const startAt = request.query.start_at
     const parsedStartAt = startAt ? new Date(startAt) : new Date(0)
-    const records = await benefitsRecordsModel.aggregateBenefitEvents(
-      parsedStartAt,
-    )
+    const records =
+      await benefitsRecordsModel.aggregateBenefitEvents(parsedStartAt)
 
     response.cache(records)
     response.status(200).json(records)
