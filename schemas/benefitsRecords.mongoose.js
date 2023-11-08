@@ -23,6 +23,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
         "show-unexpected-amount-link",
         "close",
         "teleservice",
+        "teleservicePrefill",
         "retour-logement",
         "simulation-caf",
         "email",
