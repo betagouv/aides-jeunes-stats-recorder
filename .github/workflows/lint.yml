@@ -20,9 +20,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-      - name: Lint (eslint)
+      - name: Lint (eslint && prettier)
         run: |
           npm run lint
-      - name: Lint (prettier)
-        run: |
-          npm run prettier:check
