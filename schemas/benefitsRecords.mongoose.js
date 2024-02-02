@@ -13,6 +13,7 @@ const BenefitsRecordsSchema = new mongoose.Schema(
       enum: [
         "show",
         "showDetails",
+        "showDetailsFromGroupPage",
         "form",
         "instructions",
         "link",
