@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 require.main.require("./config/mongoose")
 
 const BenefitsRecordsSchema = require.main.require(
-  "./schemas/benefitsRecords.mongoose.js"
+  "./schemas/benefitsRecords.mongoose.js",
 )
 
 module.exports = {
@@ -60,8 +60,8 @@ module.exports = {
       },
     ])
   },
-  getBenefitsRankingStatistics() {
-    return BenefitsRecordsSchema.aggregate([
+  async getBenefitsRankingStatistics() {
+    return await BenefitsRecordsSchema.aggregate([
       {
         $match: {
           version: 2,

@@ -117,7 +117,9 @@ describe("GET /benefits", () => {
   beforeAll(async () => {
     await BenefitsRecordsSchema.deleteMany({})
     await BenefitsRecordsSchema.create([payload, payload, otherPayload])
-    response = await request(app).get("/benefits")
+    response = await request(app)
+      .get("/benefits")
+      .set("cache-control", "no-cache")
   })
 
   it("responds 200", async () => {

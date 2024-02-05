@@ -1,6 +1,7 @@
 const benefitsRecordsModel = require.main.require(
-  "./models/benefitsRecords.model.js"
+  "./models/benefitsRecords.model.js",
 )
+const createCacheMiddleware = require("../utils/cache-middleware.js")
 
 function createBenefitRecord(request, response, next) {
   benefitsRecordsModel
@@ -24,9 +25,10 @@ async function aggregateBenefitEvents(request, response, next) {
   try {
     const startAt = request.query.start_at
     const parsedStartAt = startAt ? new Date(startAt) : new Date(0)
-    const records = await benefitsRecordsModel.aggregateBenefitEvents(
-      parsedStartAt
-    )
+    const records =
+      await benefitsRecordsModel.aggregateBenefitEvents(parsedStartAt)
+
+    response.cache(records)
     response.status(200).json(records)
   } catch (error) {
     next(error)
@@ -36,5 +38,8 @@ async function aggregateBenefitEvents(request, response, next) {
 module.exports = {
   createBenefitRecord: [createBenefitRecord],
   getBenefitsRankingStatistics: [getBenefitsRankingStatistics],
-  aggregateBenefitEvents: [aggregateBenefitEvents],
+  aggregateBenefitEvents: [
+    createCacheMiddleware("aggregateBenefitEvents"),
+    aggregateBenefitEvents,
+  ],
 }
