@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/betagouv/aides-jeunes-stats-recorder#readme",
   "dependencies": {
-    "body-parser": "^1.20.2",
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mongoose": "^8.9.5"
