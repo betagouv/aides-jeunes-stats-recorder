@@ -13,7 +13,7 @@ app.use((error, request, response, next) => {
 })
 
 if (process.env.NODE_ENV !== "test") {
-  const server = app.listen(config.server.port, () => {
+  const server = app.listen(config.server.port, config.server.host, () => {
     console.log(`Server running at http://localhost:${server.address().port}`)
   })
 }
