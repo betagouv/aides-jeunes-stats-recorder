@@ -4,6 +4,8 @@ on:
   push:
     branches: [dev, main]
 
+concurrency: deploy-${{ github.ref }}
+
 jobs:
   deploy_eclipse:
     if: github.ref == 'refs/heads/dev'
