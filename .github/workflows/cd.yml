@@ -2,10 +2,13 @@ name: Deploy
 
 on:
   push:
-    branches: [dev]
+    branches: [dev, main]
+
+concurrency: deploy-${{ github.ref }}
 
 jobs:
   deploy_eclipse:
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -13,3 +16,13 @@ jobs:
           echo "${{ secrets.ECLIPSE_PREPRODUCTION_DEPLOY_KEY }}" > ~/.ssh/deployment.key
           chmod 600 ~/.ssh/deployment.key
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/deployment.key debian@eclipse.mes-aides.incubateur.net
+
+  deploy_equinoxe:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EQUINOXE_PRODUCTION_DEPLOY_KEY }}" > ~/.ssh/deployment.key
+          chmod 600 ~/.ssh/deployment.key
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/deployment.key debian@equinoxe.mes-aides.1jeune1solution.beta.gouv.fr
